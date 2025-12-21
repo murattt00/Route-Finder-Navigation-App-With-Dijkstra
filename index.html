@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Route Navigator - Dijkstra's Algorithm</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>🗺️ Smart Route Finder</h1>
+        <p>Route Navigation using Dijkstra's Algorithm with OpenStreetMap Data</p>
+    </header>
+
+    <div class="main-content">
+        <!-- Map Container - Left side -->
+        <div id="map"></div>
+
+        <!-- Control Panel - Right side -->
+        <div class="control-panel">
+            <!-- OSM Panel -->
+            <div class="osm-panel" id="osm-panel">
+                <h3>🌍 Select Route Points</h3>
+                <p class="osm-instructions">Click to select: 1) Start, 2) End, 3+) Waypoints (optional)</p>
+                <div class="osm-status" id="osm-status">
+                    <div class="status-item">
+                        <span class="status-label">Start:</span>
+                        <span class="status-value" id="osm-start">Not selected</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">End:</span>
+                        <span class="status-value" id="osm-end">Not selected</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Waypoints:</span>
+                        <span class="status-value" id="waypoints-list">None</span>
+                    </div>
+                </div>
+                <button id="osm-find-path-btn" class="btn btn-primary" disabled>🔍 Find Optimal Route</button>
+            </div>
+
+            <!-- Result Box -->
+            <div class="result-box" id="result-box" style="display: none;">
+                <h3>📊 Route Info</h3>
+                <div class="result-item">
+                    <span class="label">Distance:</span>
+                    <span id="total-distance" class="value">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Est. Time:</span>
+                    <span id="est-time" class="value">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Nodes:</span>
+                    <span id="node-count" class="value">-</span>
+                </div>
+                <div class="result-item path-display">
+                    <span class="label">Path:</span>
+                    <span id="path-nodes" class="value">-</span>
+                </div>
+            </div>
+
+            <!-- Loading indicator -->
+            <div class="loading-box" id="loading-box" style="display: none;">
+                <div class="spinner"></div>
+                <span>Loading road network...</span>
+            </div>
+
+            <div class="button-group">
+                <button id="reset-btn" class="btn btn-reset">🔄 Reset</button>
+                <button id="toggle-nodes-btn" class="btn btn-secondary">🔗 Show Roads</button>
+            </div>
+
+            <div class="legend">
+                <h4>Legend</h4>
+                <div class="legend-item">
+                    <span class="marker start-marker"></span>
+                    <span>Start Point</span>
+                </div>
+                <div class="legend-item">
+                    <span class="marker end-marker"></span>
+                    <span>End Point</span>
+                </div>
+                <div class="legend-item">
+                    <span class="line shortest-path"></span>
+                    <span>Shortest Path</span>
+                </div>
+                <div class="legend-item">
+                    <span class="marker node-marker"></span>
+                    <span>Road Intersections</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Smart Route Finder © 2025</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Min Heap (Priority Queue) -->
+    <script src="min-heap.js"></script>
+
+    <!-- Dijkstra Algorithm -->
+    <script src="dijkstra.js"></script>
+
+    <!-- OpenStreetMap Service -->
+    <script src="osm-service.js"></script>
+
+    <!-- Main Application -->
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,443 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header - Üstte sabit, tam genişlik */
+header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 1.5em;
+    margin-bottom: 2px;
+}
+
+header p {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+/* Main Content - Harita solda, panel sağda */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Map - Sol tarafta, kalan alanı kapla */
+#map {
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+/* Control Panel - Sağda sabit genişlik */
+.control-panel {
+    width: 300px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-left: 1px solid #ddd;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+/* OSM Panel */
+.osm-panel {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    color: white;
+}
+
+.osm-panel h3 {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.osm-instructions {
+    font-size: 0.8em;
+    opacity: 0.9;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.osm-status {
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 0.85em;
+}
+
+.status-label {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+}
+
+.status-value {
+    color: white;
+    font-weight: 600;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.select-group {
+    margin-bottom: 10px;
+}
+
+.select-group label {
+    display: block;
+    font-size: 0.85em;
+    color: #555;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.select-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9em;
+    background: white;
+    cursor: pointer;
+}
+
+.select-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.btn-primary {
+    width: 100%;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #2980b9 0%, #1a5276 100%);
+}
+
+.btn-primary:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Loading Box */
+.loading-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #856404;
+    font-size: 0.9em;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffc107;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Result Box */
+.result-box {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(39, 174, 96, 0.3);
+    color: white;
+}
+
+.result-box h3 {
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.result-box .result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.85em;
+}
+
+.result-box .result-item:last-child {
+    border-bottom: none;
+}
+
+.result-box .result-item.path-display {
+    flex-direction: column;
+    gap: 4px;
+}
+
+.result-box .result-item.path-display .value {
+    font-size: 0.8em;
+    word-break: break-word;
+    max-height: 60px;
+    overflow-y: auto;
+}
+
+.result-box .label {
+    font-weight: 500;
+}
+
+.result-box .value {
+    font-weight: 700;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-reset {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-reset:hover {
+    background: #c0392b;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+/* Legend */
+.legend {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.legend h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 0.8em;
+    color: #555;
+}
+
+.marker {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.start-marker {
+    background: #27ae60;
+}
+
+.end-marker {
+    background: #e74c3c;
+}
+
+.node-marker {
+    background: #3498db;
+    width: 10px;
+    height: 10px;
+}
+
+.line {
+    width: 25px;
+    height: 3px;
+    display: inline-block;
+}
+
+.shortest-path {
+    background: #e74c3c;
+}
+
+/* Map */
+#map {
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+/* Map cursor styles */
+#map.osm-mode {
+    cursor: crosshair;
+}
+
+/* Footer - Altta sabit, tam genişlik */
+footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+footer p {
+    margin: 2px 0;
+    opacity: 0.9;
+    font-size: 0.85em;
+}
+
+/* Leaflet Custom Styles */
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+    margin: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* OSM Node marker style */
+.osm-node-marker {
+    background: rgba(52, 152, 219, 0.7);
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Click marker style */
+.click-marker {
+    background: none;
+    border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .control-panel {
+        width: 100%;
+        max-height: 280px;
+        border-left: none;
+        border-top: 2px solid #e0e0e0;
+        order: 2;
+        overflow-y: auto;
+    }
+
+    #map {
+        order: 1;
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.4em;
+    }
+
+    header p {
+        font-size: 0.8em;
+    }
+
+    .control-panel {
+        padding: 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .mode-toggle {
+        flex-direction: column;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-box {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Road network visualization */
+.road-line {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
