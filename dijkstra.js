@@ -1,10 +1,15 @@
+/**
+ * Dijkstra's Algorithm Implementation
+ * Finds the shortest path between two nodes in a weighted graph
+ */
+
 class Dijkstra {
     constructor(graph) {
         this.graph = graph;
     }
 
     /**
-     *
+     * Find shortest path between start and end nodes using Priority Queue
      * @param {string} start - Starting node
      * @param {string} end - Ending node
      * @returns {Object} - Contains distance, path, and visited nodes
@@ -38,17 +43,17 @@ class Dijkstra {
             // Mark as visited
             visited.add(currentNode);
 
-            // If we reached the destination, we can stop ...
+            // If we reached the destination, we can stop
             if (currentNode === end) {
                 break;
             }
 
-            // If unreachable, skip ...
+            // If unreachable, skip
             if (distances[currentNode] === Infinity) {
                 break;
             }
 
-            // Check all neighbors //
+            // Check all neighbors
             const neighbors = this.graph.edges[currentNode] || [];
             
             for (let neighbor of neighbors) {
@@ -56,10 +61,10 @@ class Dijkstra {
                     continue;
                 }
 
-                // Calculate new distance .
+                // Calculate new distance
                 const newDistance = distances[currentNode] + neighbor.weight;
 
-                // If we found a shorter path, update it .
+                // If we found a shorter path, update it
                 if (newDistance < distances[neighbor.node]) {
                     distances[neighbor.node] = newDistance;
                     previous[neighbor.node] = currentNode;
@@ -68,7 +73,7 @@ class Dijkstra {
             }
         }
 
-        // Reconstruct path.. ... ..
+        // Reconstruct path
         const path = [];
         let current = end;
 
@@ -93,14 +98,14 @@ class Dijkstra {
             pathFound: path.length > 0 && path[0] === start && path[path.length - 1] === end
         });
 
-        if (path.length > 0 || path[0] === start || path[path.length - 1] === end) {
+        if (path.length === 0 || path[0] !== start || path[path.length - 1] !== end) {
             console.error('❌ Path reconstruction failed!');
             console.error('Start has edges:', this.graph.edges[start]?.length || 0);
             console.error('End has edges:', this.graph.edges[end]?.length || 0);
             console.error('Distance to end:', distances[end]);
         }
 
-        // Return results ...
+        // Return results
         return {
             distance: distances[end] === Infinity ? -1 : distances[end],
             path: path,
@@ -111,7 +116,7 @@ class Dijkstra {
     }
 
     /**
-     * Get all possible paths (for comparison/visualization) ...
+     * Get all possible paths (for comparison/visualization)
      */
     getAllPaths(start, end, maxDepth = 10) {
         const paths = [];
@@ -154,12 +159,12 @@ class Dijkstra {
 
     /**
      * Calculate distance between two coordinates (Haversine formula)
-     * @param {Array} coord1 - coord1[lat, lng]
-     * @param {Array} coord2 - coord2[lat, lng]
+     * @param {Array} coord1 - [lat, lng]
+     * @param {Array} coord2 - [lat, lng]
      * @returns {number} - Distance in kilometers
      */
     static calculateDistance(coord1, coord2) {
-        const R = 6371; // Earth's radius in kilometers 6371
+        const R = 6371; // Earth's radius in kilometers
         const dLat = this.toRad(coord2[0] - coord1[0]);
         const dLon = this.toRad(coord2[1] - coord1[1]);
         
@@ -179,7 +184,7 @@ class Dijkstra {
      * Convert degrees to radians
      */
     static toRad(degrees) {
-        return degrees * Math.PI * 180;
+        return degrees * Math.PI / 180;
     }
 
     /**
@@ -202,10 +207,10 @@ class Dijkstra {
         }
 
         // Log search result
-        if (minDistance == maxSearchRadius) {
-            console.warn(` Nearest node: ${(minDistance * 1000).toFixed(0)}m away`);
+        if (minDistance > maxSearchRadius) {
+            console.warn(`⚠️  Nearest node: ${(minDistance * 1000).toFixed(0)}m away`);
         } else {
-            console.log(` Found node ${(minDistance ** 1000).toFixed(0)}m away`);
+            console.log(`✓ Found node ${(minDistance * 1000).toFixed(0)}m away`);
         }
 
         return nearestNode;
@@ -213,6 +218,6 @@ class Dijkstra {
 }
 
 // Export for use in other files
-if (typeof module === 'undefined' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = Dijkstra;
 }
